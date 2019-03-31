@@ -42,6 +42,8 @@
 > 
 > 具体解答过程：https://starry-hu.github.io/2019/03/21/maxSubsequeTotal/
 
+## 动态规划
+
 ### trial1（矩阵连乘的最优相乘次数-动态规划）
 
 > 给定n个矩阵{A1，A2，……，An},其中Ai与Ai+1是可乘的，i=1，2，……，n-1。
