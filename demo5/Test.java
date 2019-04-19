@@ -21,8 +21,10 @@ public class Test {
 		mTotal.maxSum1();
 		System.out.println("\n--------方法二测试--------");
 		mTotal.maxSum2();
-		System.out.println("\n--------方法三测试--------");
+		System.out.println("\n--------方法三测试（动态规划）--------");
 		mTotal.maxSum3();
+		System.out.println("\n--------方法四测试（分治）--------");
+		mTotal.maxSum4();
 	}
 
 }
