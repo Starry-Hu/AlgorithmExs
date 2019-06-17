@@ -54,6 +54,6 @@ public class QueueGreedy {
 			sum += dealTime[i] * (n-i);
 		}
 		
-		System.out.println(sum);
+		System.out.println("最短等待时间为：" + sum);
 	}
 }

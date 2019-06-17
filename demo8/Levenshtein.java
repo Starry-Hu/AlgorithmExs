@@ -89,14 +89,14 @@ public class Levenshtein {
 			for (int j = 1; j <= Bchars.length; j++) {
 				// 先查看两者是否相等，同时将此种 “改情况的值”存入，并与其他两者情况比较
 				// 如果两者相等，则此时最小编辑距离为去掉这个字符的最小编辑距离
-				// 如果不相等，则替换A串的最后一个为B串的最后一个
+				// 如果不相等，则替换A串的最后一个为B串的最后一个，需要在原来的基础上加1
 				if (Achars[i - 1] == Bchars[j - 1]) {
 					result[i][j] = result[i - 1][j - 1];
 				} else {
 					result[i][j] = result[i - 1][j - 1] + 1;
 				}
 
-				// 最后对三种情况（即对A的最后一个字符的增删改操作）进行比较，取值最小的作为此时的最小编辑距离
+				// 最后对三种情况（即对A的最后一个字符的增删、改操作）进行比较，取值最小的作为此时的最小编辑距离
 				int tempMin = Math.min(result[i - 1][j] + 1, result[i][j - 1] + 1);
 				result[i][j] = Math.min(result[i][j], tempMin);
 			}

@@ -11,7 +11,7 @@ public class MaxNoIncreaseSequ {
 	private int[] data;
 	// 最长拦截序列的最后一个导弹为i时的最大拦截个数
 	private int[] result1;
-	// 记录拦截全部导弹所需要配置的最少系统个数
+	// 记录拦截序列最后一个导弹为i时的最少系统配置数
 	private int[] result2;
 
 	public int[] getData() {
@@ -79,6 +79,7 @@ public class MaxNoIncreaseSequ {
 			maxNum2 = Math.max(maxNum2, result2[i]);
 		}
 		
-		System.out.println(maxNum1);
+		System.out.println("-----------一套系统最多可拦截：" + maxNum1 + "----------");
+		System.out.println("-----------全部拦截最少需要：" + maxNum2 + "----------");
 	}
 }

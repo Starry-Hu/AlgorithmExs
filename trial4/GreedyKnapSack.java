@@ -5,11 +5,7 @@ public class GreedyKnapSack {
 	private float bagMaxSize;
 	// 可选物品的数量
 	private int itemNum;
-	// 可选物品的容量大小
-	private float[] itemSize;
-	// 可选物品的价值
-	private float[] itemValue;
-	// 背包容量为j时从前i件中选取物品的最大价值和
+	// 最大价值和
 	private float valueBag;
 	// 物品的选择情况(0~1)区间
 	private float[] itemChoose;
@@ -30,22 +26,6 @@ public class GreedyKnapSack {
 
 	public void setItemNum(int itemNum) {
 		this.itemNum = itemNum;
-	}
-
-	public float[] getItemSize() {
-		return itemSize;
-	}
-
-	public void setItemSize(float[] itemSize) {
-		this.itemSize = itemSize;
-	}
-
-	public float[] getItemValue() {
-		return itemValue;
-	}
-
-	public void setItemValue(float[] itemValue) {
-		this.itemValue = itemValue;
 	}
 
 	public float getValueBag() {
@@ -87,14 +67,12 @@ public class GreedyKnapSack {
 	public void initial(float bagMaxSize, int itemNum, float[] itemSize, float[] itemValue) {
 		this.bagMaxSize = bagMaxSize;
 		this.itemNum = itemNum;
-		this.itemSize = itemSize;
-		this.itemValue = itemValue;
 		itemChoose = new float[itemNum];
 
 		// 物品数组,在添加的同时计算出物品的单价
 		itemList = new Item[itemNum];
 		for (int i = 0; i < itemNum; i++) {
-			itemList[i] = new Item(itemValue[i], itemSize[i]);
+			itemList[i] = new Item(itemValue[i], itemSize[i],i);
 		}
 		// 将物品根据单价降序排列
 		for (int i = 0; i < itemNum - 1; i++) {
@@ -117,11 +95,14 @@ public class GreedyKnapSack {
 
 		float C = bagMaxSize;
 		int i = 0;
+		int index = 0;
 
 		// 当物品还未全部遍历完且背包容量还能装下当前的物品，从大到小对物品进行选择
 		// 前边的物品能选的都选1，之后第一个剩下的占据全部剩余大小
 		while ((i <= itemNum) && (C >= itemList[i].getSize())) {
-			itemChoose[i] = 1;
+			// 获取原物品的序号，存储选择信息
+			index = itemList[i].getIndex();
+			itemChoose[index] = 1;
 			valueBag += itemList[i].getValue();
 			C -= itemList[i].getSize();
 			
@@ -133,15 +114,23 @@ public class GreedyKnapSack {
 		// 若是因为不能全部装下该物品而退出循环（此时还未遍历到物品列表尽头），则剩下的全部都用来装该物品
 		if (i <= itemNum) {
 			float leftValue = C * itemList[i].getSingleValue();
-			// 选择情况，当前物品剩余大小/当前物品全部大小
-			itemChoose[i] = C/itemList[i].getSize() ;
+			// 获取原物品的序号，存储选择信息，当前物品剩余大小/当前物品全部大小
+			index = itemList[i].getIndex();
+			itemChoose[index] = C/itemList[i].getSize() ;
 			valueBag += leftValue;
 			C = 0;
 			
-			System.out.println(itemList[i] + "选择量为" + itemChoose[i]);
+			System.out.println(itemList[i] + "选择量为" + itemChoose[index]);
+			i++;
 		}
 		
-		System.out.println("------------总价值为："+ valueBag + "-------------");
+		// 按原物品存入的顺序（物品原序号）展示选择情况
+		System.out.println("-------------按原顺序展示选择情况-------------");
+		for (int j = 0; j < itemChoose.length; j++) {
+			System.out.print(itemChoose[j] + " ");
+		}
+		
+		System.out.println("\n-------------总价值为："+ valueBag + "-------------");
 	}
 	
 }

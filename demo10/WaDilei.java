@@ -69,7 +69,7 @@ public class WaDilei {
 
 	public void compute() {
 		int n = data.length;
-		// 最后一个的赋值
+		// 最后一个的赋值（也可以将data值全部赋过去）
 		result[n - 1] = data[n - 1];
 
 		// 从后往前推,(最开始第i个地窖的值认为不放入result[i]中,通过与后边的result[j]+data[i]组合得到全新的值)
